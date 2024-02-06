@@ -199,3 +199,38 @@ variable "tags" {
   default     = {}
 }
 
+variable "public_network_enabled" {
+  type        = string
+  description = "Is the Data Factory visible to the public network? Defaults to true."
+  default     = null
+}
+
+variable "customer_managed_key_id" {
+  type        = string
+  description = "Specifies the Azure Key Vault Key ID to be used as the Customer Managed Key (CMK) for double encryption. Required with user assigned identity."
+  default     = null
+}
+
+variable "customer_managed_key_identity_id" {
+  type        = string
+  description = "Specifies the ID of the user assigned identity associated with the Customer Managed Key. Must be supplied if customer_managed_key_id is set."
+  default     = null
+}
+
+variable "managed_virtual_network_enabled" {
+  type        = string
+  description = "Is Managed Virtual Network enabled?"
+  default     = null
+}
+
+variable "global_parameters" {
+  type = object({
+    name  = global_parameter.value.name
+    type  = global_parameter.value.type
+    value = global_parameter.value.value
+    # system_assigned            = optional(bool, false)
+    # user_assigned_resource_ids = optional(set(string), [])
+  })
+  description = "Managed identities to be created for the resource."
+  default     = {}
+}
