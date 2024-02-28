@@ -59,28 +59,28 @@ resource "azurerm_data_factory" "this" {
   }
 
   # Dynamic block for configuring github configuration;
-  dynamic "github_configuration" {
-    for_each = [for v in [var.github_configuration] : v if length(v) > 0]
-    content {
-      account_name    = lookup(github_configuration.value, "account_name", null)
-      branch_name     = lookup(github_configuration.value, "branch_name", null)
-      git_url         = lookup(github_configuration.value, "git_url", null)
-      repository_name = lookup(github_configuration.value, "repository_name", null)
-      root_folder     = lookup(github_configuration.value, "root_folder", null)
-    }
-  }
+  # dynamic "github_configuration" {
+  #   for_each = [for v in [var.github_configuration] : v if length(v) > 0]
+  #   content {
+  #     account_name    = lookup(github_configuration.value, "account_name", null)
+  #     branch_name     = lookup(github_configuration.value, "branch_name", null)
+  #     git_url         = lookup(github_configuration.value, "git_url", null)
+  #     repository_name = lookup(github_configuration.value, "repository_name", null)
+  #     root_folder     = lookup(github_configuration.value, "root_folder", null)
+  #   }
+  # }
 
-  # Dynamic block for configuring vsts_configuration configuration;
-  dynamic "vsts_configuration" {
-    for_each = [for v in [var.vsts_configuration] : v if length(v) > 0]
-    content {
-      account_name    = lookup(vsts_configuration.value, "account_name", null)
-      branch_name     = lookup(vsts_configuration.value, "branch_name", null)
-      project_name    = lookup(vsts_configuration.value, "project_name", null)
-      repository_name = lookup(vsts_configuration.value, "repository_name", null)
-      root_folder     = lookup(vsts_configuration.value, "root_folder", null)
-      tenant_id       = lookup(vsts_configuration.value, "tenant_id", data.azurerm_client_config.current.tenant_id)
-    }
-  }
+  # # Dynamic block for configuring vsts_configuration configuration;
+  # dynamic "vsts_configuration" {
+  #   for_each = [for v in [var.vsts_configuration] : v if length(v) > 0]
+  #   content {
+  #     account_name    = lookup(vsts_configuration.value, "account_name", null)
+  #     branch_name     = lookup(vsts_configuration.value, "branch_name", null)
+  #     project_name    = lookup(vsts_configuration.value, "project_name", null)
+  #     repository_name = lookup(vsts_configuration.value, "repository_name", null)
+  #     root_folder     = lookup(vsts_configuration.value, "root_folder", null)
+  #     tenant_id       = lookup(vsts_configuration.value, "tenant_id", data.azurerm_client_config.current.tenant_id)
+  #   }
+  # }
   tags = module.common_resource_tags.tags
 }
